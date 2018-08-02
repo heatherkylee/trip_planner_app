@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     patch "/trips/:id" => "trips#update"
     delete "/trips/:id" => "trips#destroy"
 
+    get "/places" => "places#index"
+    post "/places" => "places#create"
+    get "/places/:id" => "places#show"
+    # patch "/places/:id" => "places#show"
     
   end
 end
