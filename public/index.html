@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <div id="vue-app">
+
+    <router-view></router-view>
+
+  </div>
+<!--   <script>
+    function activatePlacesSearch() {
+      var input = document.getElementByID('autocomplete');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+  </script> -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8A_XC0i0ZsFIdd_j0DiC0fi8rRnioawY&libraries=places"></script>
+</body>
+</html>
+
+<template id="home-page">
+  <div class="vue-component">
+
+    <h1>{{ message }}</h1>
+    <div>
+      <p>Search for a place:</p>
+      <input v-model="newPlace">
+      <button v-on:click="searchPlace()">Search for a Place</button>
+    </div>
+    <div v-for="candidate in results.candidates">
+      <p>Return Results</p>
+      <p>Name: {{candidate.name}}</p>
+      <p>Address: {{candidate.formatted_address}}</p>
+      <p>Place_ID: {{candidate.place_id}}</p>
+      <button v-on:click="addToTrip(candidate)">Add to your trip</button>
+      <hr>
+    </div>
+  </div>
+</template>
