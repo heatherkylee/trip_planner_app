@@ -1,6 +1,7 @@
 class Api::TripsController < ApplicationController
   def index
-    @trips = Trip.all.order("id")
+    # @trips = Trip.all.order("id")
+    @trips = current_user.trips
     render "index.json.jbuilder"
   end
 

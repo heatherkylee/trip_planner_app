@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     get "/places/:id" => "places#show"
     # patch "/places/:id" => "places#show"
     
+    post "/users" => "users#create"
   end
 end
