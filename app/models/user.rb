@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  class User < ApplicationRecord
   has_secure_password
-  end
+  has_many :trips
 end

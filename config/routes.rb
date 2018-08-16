@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     # patch "/places/:id" => "places#show"
     
     post "/users" => "users#create"
+    post "/sessions" => "sessions#create"
   end
 end

@@ -13,6 +13,7 @@
     <a href="/#/signup">Signup</a>
     <a href="/#/login">Login</a>
     <a href="/#/logout">Logout</a>
+    <a href="/#/trips/new">Add a Trip</a>
 
     <router-view></router-view>
 
@@ -36,13 +37,68 @@
   </div>
 </template>
 
+<!-- Trips -->
+
 <template id="trips-page">
   <div class="vue-component">
 
     <h1>{{ message }}</h1>
+    <div v-for="trip in trips">
+      <p>Trip Name: {{trip.name}}</p>
+      <div v-for="place in trip.places">
+        <p>{{place.place_id}}</p>
+      </div>
+      <hr>
+    </div>
+  </div>
+</template>
+
+<template id="show-trip-page">
+  <div class="vue-component">
+
+    <h1>{{ message }}</h1>
+    <div v-for="place in trip.places">
+      <p>{{place.place_id}}</p>
+      <hr>
+    </div>
+  </div>
+</template>
+
+<template id="add-trip-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Add a Trip</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
 
   </div>
 </template>
+
+<template id="edit-trip-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Edit Trip</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<!-- Places -->
 
 <template id="add-place-page">
   <div class="vue-component">
@@ -67,6 +123,8 @@
     </div>
   </div>
 </template>
+
+<!-- Authentication -->
 
 <template id="signup-page">
   <div class="vue-component">

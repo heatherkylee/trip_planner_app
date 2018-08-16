@@ -12,19 +12,115 @@ var HomePage = {
   computed: {}
 };
 
+// Trips
+
 var TripsPage = {
   template: "#trips-page",
   data: function() {
     return {
-      message: "My Trips"
+      message: "My Trips",
+      trips: {
+        name: "",
+        places: []
+      }
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/api/trips").then(function(response) {
+      console.log(response.data);
+      this.trips = response.data;
+    }.bind(this));
+  },
   methods: {},
   computed: {}
 };
 
-var AddPlace = {
+var AddTripPage = {
+  template: "#add-trip-page",
+  data: function() {
+    return {
+      message: "Add a Trip",
+      name: "",
+      errors: []
+    };
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+      };
+      axios
+        .post("/api/trips", params)
+        .then(function(response) {
+          router.push("/trips");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
+var EditTripPage = {
+  template: "#edit-trip-page",
+  data: function() {
+    return {
+      message: "Edit Trip",
+      name: "",
+      editTripName: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
+      console.log(response.data);
+      this.editTripName = response.data.name;
+      this.name = this.editTripName;
+    }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+      };
+      axios
+        .patch("/api/trips/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/trips");
+          console.log("Trip name has been updated");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
+var ShowTripPage = {
+  template: "#show-trip-page",
+  data: function() {
+    return {
+      message: "My Trip!",
+      trip: []
+    };
+  },
+  created: function() {
+    axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
+      this.trip = response.data;
+      console.log(this.trip);
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
+// Places
+
+var AddPlacePage = {
   template: "#add-place-page",
   data: function() {
     return {
@@ -72,6 +168,8 @@ var AddPlace = {
   },
   computed: {}
 };
+
+// Authentication
 
 var SignupPage = {
   template: "#signup-page",
@@ -126,7 +224,7 @@ var LoginPage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/");
+          router.push("/trips");
         })
         .catch(
           function(error) {
@@ -152,7 +250,10 @@ var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
     { path: "/trips", component: TripsPage },
-    { path: "/places/new", component: AddPlace },
+    { path: "/trips/new", component: AddTripPage },
+    { path: "/trips/:id/edit", component: EditTripPage },
+    { path: "/trips/:id", component: ShowTripPage },
+    { path: "/places/new", component: AddPlacePage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
     { path: "/logout", component: LogoutPage }

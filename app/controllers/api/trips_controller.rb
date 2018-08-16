@@ -1,13 +1,19 @@
 class Api::TripsController < ApplicationController
   def index
-    # @trips = Trip.all.order("id")
-    @trips = current_user.trips
-    render "index.json.jbuilder"
+    # @trips = Trip.all
+    if current_user
+      @trips = current_user.trips
+      render "index.json.jbuilder"
+    else
+      render json: []
+    end
   end
 
   def create
     @trip = Trip.new(
-      name: params[:input_trip_name])
+      name: params[:name],
+      user_id: current_user.id
+    )
     @trip.save
     render "show.json.jbuilder"
   end
@@ -19,7 +25,8 @@ class Api::TripsController < ApplicationController
 
   def update
     @trip = Trip.find_by(id: params[:id])
-    @trip.name = params[:input_trip_name] || @trip.name
+    @trip.name = params[:name] || @trip.name
+    @trip.user_id = current_user.id
     @trip.save
     render "show.json.jbuilder"
   end
