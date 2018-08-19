@@ -42,12 +42,14 @@
 <template id="trips-page">
   <div class="vue-component">
 
-    <h1>{{ message }}</h1>
+    <h1>My Trips!</h1>
     <div v-for="trip in trips">
+      <p>Trip ID: {{trip.id}}</p>
       <p>Trip Name: {{trip.name}}</p>
       <div v-for="place in trip.places">
         <p>{{place.place_id}}</p>
       </div>
+      <a v-bind:href="'/#/trips/' + trip.id "  class="btn btn-primary">View Trip</a>
       <hr>
     </div>
   </div>
