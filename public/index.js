@@ -41,6 +41,7 @@ var AddTripPage = {
     return {
       message: "Add a Trip",
       name: "",
+      tripID: 0,
       errors: []
     };
   },
@@ -52,7 +53,9 @@ var AddTripPage = {
       axios
         .post("/api/trips", params)
         .then(function(response) {
-          router.push("/trips");
+          this.tripID = response.data.id;
+          console.log(this.tripID);
+          router.push("/trips/" + this.tripID);
         })
         .catch(
           function(error) {
@@ -104,8 +107,14 @@ var ShowTripPage = {
   template: "#show-trip-page",
   data: function() {
     return {
-      message: "My Trip!",
-      trip: []
+      trip: [],
+      message: "Simple Search",
+      newPlace: "Prague Caste",
+      results: [],
+      candidate: {place_id: ""},
+      places: [],
+      details: [],
+      addTripDetails: []
     };
   },
   created: function() {
@@ -114,7 +123,51 @@ var ShowTripPage = {
       console.log(this.trip);
     }.bind(this));
   },
-  methods: {},
+  methods: {
+    searchPlace: function() {
+      console.log("searching for a place");
+      var newPlace = this.newPlace;
+      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=APIKEY&input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
+        this.results = response.data;
+        console.log(response.data);
+      }.bind(this));
+    },
+    addToTrip: function(inputCandidate) {
+      console.log(inputCandidate);
+      var tripID = {
+        place_id: inputCandidate.place_id
+      };
+
+      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website,photos&key=APIKEY").then(function(response) {
+        console.log("place details");
+        console.log(response.data);
+        // console.log("****");
+        // console.log(this.details);
+        console.log("adding to trip");
+        console.log(response.data.result.opening_hours.weekday_text.join(", "));
+        var theParams = {
+          place_id: inputCandidate.place_id,
+          trip_id: this.$route.params.id,
+          name: response.data.result.name,
+          address: response.data.result.formatted_address,
+          phone_number: response.data.result.formatted_phone_number,
+          opening_hours: response.data.result.opening_hours.weekday_text.join(", "),
+          website: response.data.result.website
+        };
+        console.log("printing the params");
+        console.log(theParams);
+        axios.post("/api/places", theParams).then(function(response) {
+          console.log(response.data);
+          console.log("place has been added");
+          this.places.push(response.data);
+        }.bind(this));
+
+      }.bind(this));
+      // console.log("name of place");
+      // console.log(this.details);
+            
+    }
+  },
   computed: {}
 };
 
@@ -137,15 +190,17 @@ var AddPlacePage = {
     searchPlace: function() {
       console.log("searching for a place");
       var newPlace = this.newPlace;
-      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=APIKEY&input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCI_au_w7tQ4AQ_hAO6lRHaoGvs-TF1apw&input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
         this.results = response.data;
         console.log(response.data);
       }.bind(this));
     },
     addToTrip: function(inputCandidate) {
+      console.log(inputCandidate);
       console.log("adding to trip");
       var theParams = {
         place_id: inputCandidate.place_id
+        // trip_id: 1
       };
       console.log(theParams);
       axios.post("/api/places", theParams).then(function(response) {
@@ -158,7 +213,7 @@ var AddPlacePage = {
         place_id: inputCandidate.place_id
       };
 
-      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website&key=APIKEY").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website,photos[]&key=AIzaSyCI_au_w7tQ4AQ_hAO6lRHaoGvs-TF1apw").then(function(response) {
         console.log("place details");
         console.log(response.data);
         this.details.push(response.data);

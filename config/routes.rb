@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post "/places" => "places#create"
     get "/places/:id" => "places#show"
     # patch "/places/:id" => "places#show"
+    delete "/places/:id" => "places#destroy"
     
     post "/users" => "users#create"
     post "/sessions" => "sessions#create"

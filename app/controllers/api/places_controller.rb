@@ -18,9 +18,15 @@ class Api::PlacesController < ApplicationController
     #   render "show.json.jbuilder"
     # end
     @place = Place.new(
-        place_id: params[:place_id]
+        place_id: params[:place_id],
+        trip_id: params[:trip_id],
+        name: params[:name],
+        address: params[:address],
+        phone_number: params[:phone_number],
+        opening_hours: params[:opening_hours],
+        website: params[:website]
       )
-    @place.save
+    @place.save!
     render "show.json.jbuilder"
   end
 
