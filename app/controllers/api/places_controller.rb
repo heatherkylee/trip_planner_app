@@ -23,7 +23,7 @@ class Api::PlacesController < ApplicationController
         name: params[:name],
         address: params[:address],
         phone_number: params[:phone_number],
-        opening_hours: params[:opening_hours],
+        opening_hours: params[:opening_hours] || "",
         website: params[:website]
       )
     @place.save!

@@ -127,7 +127,7 @@ var ShowTripPage = {
     searchPlace: function() {
       console.log("searching for a place");
       var newPlace = this.newPlace;
-      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=APIKEY&input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyCI_au_w7tQ4AQ_hAO6lRHaoGvs-TF1apw&input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
         this.results = response.data;
         console.log(response.data);
       }.bind(this));
@@ -144,14 +144,20 @@ var ShowTripPage = {
         // console.log("****");
         // console.log(this.details);
         console.log("adding to trip");
-        console.log(response.data.result.opening_hours.weekday_text.join(", "));
+        // console.log(response.data.result.opening_hours.weekday_text.join(", "));
+        var hours;
+        if (response.data.result.opening_hours) {
+          hours = response.data.result.opening_hours.weekday_text;
+        } else {
+          hours = "not available"; 
+        }
         var theParams = {
           place_id: inputCandidate.place_id,
           trip_id: this.$route.params.id,
           name: response.data.result.name,
           address: response.data.result.formatted_address,
           phone_number: response.data.result.formatted_phone_number,
-          opening_hours: response.data.result.opening_hours.weekday_text.join(", "),
+          opening_hours: hours,
           website: response.data.result.website
         };
         console.log("printing the params");
@@ -213,7 +219,7 @@ var AddPlacePage = {
         place_id: inputCandidate.place_id
       };
 
-      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website,photos[]&key=AIzaSyCI_au_w7tQ4AQ_hAO6lRHaoGvs-TF1apw").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website,photos[]&key=APIKEY").then(function(response) {
         console.log("place details");
         console.log(response.data);
         this.details.push(response.data);
