@@ -1,5 +1,5 @@
 json.place place.id
-json.google_id place.place_id
+json.place_id place.place_id
 json.name place.name
 json.address place.address
 json.phone_number place.phone_number

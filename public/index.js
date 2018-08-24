@@ -166,9 +166,15 @@ var ShowTripPage = {
     },
     deleteTrip: function(inputTrip) {
       console.log("deleting trip");
-      axios.delete("/api/trips" + this.$route.params.id).then(function(response) {
+      var theParams = {id: this.$route.params.id };
+      axios.delete("/api/trips/" + this.$route.params.id, theParams).then(function(response) {
         console.log("trip has been deleted");
-      })
+        router.push("/trips");
+      });
+    },
+
+    editTrip: function(inputTrip) {
+      router.push("/trips/" + this.trip.id +  "/edit");
     }
   },
   computed: {}

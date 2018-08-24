@@ -71,6 +71,7 @@
 
     <h1>{{trip.name}}</h1>
     <a v-bind:href="'/#/trips/' + trip.id + '/edit'">Edit Trip Name</a>
+    <button v-on:click="editTrip(trip)">Edit Trip Name</a>
     <button v-on:click="deleteTrip(trip)">Delete this trip</button>
 
     <hr>
