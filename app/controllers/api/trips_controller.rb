@@ -2,7 +2,7 @@ class Api::TripsController < ApplicationController
   def index
     # @trips = Trip.all
     if current_user
-      @trips = current_user.trips
+      @trips = current_user.trips.order(:name)
       render "index.json.jbuilder"
     else
       render json: []

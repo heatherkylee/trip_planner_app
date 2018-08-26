@@ -1,6 +1,6 @@
 class Api::PlacesController < ApplicationController
   def index
-    @places = Place.all
+    @places = Place.all.order(:name)
     render "index.json.jbuilder"
   end
 
@@ -34,5 +34,11 @@ class Api::PlacesController < ApplicationController
   def show
     @place = Place.find_by(id: params[:id])
     render "show.json.jbuilder"
+  end
+
+  def destroy
+    place = Place.find_by(id: params[:id])
+    place.destroy
+    render json: {message: "Trip has been deleted."}
   end
 end

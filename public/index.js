@@ -43,7 +43,7 @@ var TripsPage = {
           this.tripID = response.data.id;
           console.log(this.tripID);
           this.trips.push(response.data);
-          // router.push("/trips/" + this.tripID);
+          router.push("/trips/" + this.tripID);
         }.bind(this));
     }
   },
@@ -75,13 +75,14 @@ var EditTripPage = {
       axios
         .patch("/api/trips/" + this.$route.params.id, params)
         .then(function(response) {
-          router.push("/trips");
+          router.push("/trips" + this.trip.id);
           console.log("Trip name has been updated");
         })
         .catch(
           function(error) {
             this.errors = error.response.data.errors;
-          }.bind(this)
+          }
+          .bind(this)
         );
     }
   }
@@ -172,10 +173,18 @@ var ShowTripPage = {
         router.push("/trips");
       });
     },
-
     editTrip: function(inputTrip) {
       router.push("/trips/" + this.trip.id +  "/edit");
-    }
+    },
+    deletePlace: function(inputPlace) {
+      console.log("deleting place");
+      var theParams = {id: inputPlace.id };
+      axios.delete("/api/places/" + inputPlace.id, theParams).then(function(response) {
+        console.log("place has been deleted");
+      });
+      var index = this.trip.places.indexOf(inputPlace);
+      this.trip.places.splice(index, 1);
+    },
   },
   computed: {}
 };

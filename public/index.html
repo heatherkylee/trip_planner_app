@@ -70,11 +70,10 @@
   <div class="vue-component">
 
     <h1>{{trip.name}}</h1>
-    <a v-bind:href="'/#/trips/' + trip.id + '/edit'">Edit Trip Name</a>
     <button v-on:click="editTrip(trip)">Edit Trip Name</a>
     <button v-on:click="deleteTrip(trip)">Delete this trip</button>
-
     <hr>
+
     <div v-for="place in trip.places">
       <p><a v-bind:href="place.website">{{place.name}}</a></p>
       <p>{{place.address}}</p>
@@ -84,8 +83,10 @@
         </div> -->
       <p><a v-bind:href="place.website">{{place.website}}</a></p>
       <p>Place ID: {{place.place_id}}</p>
+      <button v-on:click="deletePlace(place)">Delete this place</button>
       <hr>
     </div>
+
     <div>
       <p>Search for a place:</p>
       <input v-model="newPlace">
@@ -99,7 +100,7 @@
       <button v-on:click="addToTrip(candidate)">Add to your trip</button>
       <hr>
     </div>
-    <div v-if="details[0]">
+<!--     <div v-if="details[0]">
       <p>Place Details</p>
       <p>Name: {{ details[0].result.name }}</p>
       <p>Website: {{ details[0].result.website }}</p>
@@ -108,7 +109,7 @@
       <p>Hours of Operation: 
         <div v-for=" weekday_hours in details[0].result.opening_hours.weekday_text"></p>
           <p>{{weekday_hours}}</p>
-        </div>
+        </div> -->
     </div>
   </div>
 </template>
