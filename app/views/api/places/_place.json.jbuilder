@@ -1,4 +1,4 @@
-json.place place.id
+json.id place.id
 json.place_id place.place_id
 json.name place.name
 json.address place.address

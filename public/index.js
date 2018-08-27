@@ -82,7 +82,7 @@ var EditTripPage = {
           function(error) {
             this.errors = error.response.data.errors;
           }
-          .bind(this)
+            .bind(this)
         );
     }
   }
@@ -111,7 +111,7 @@ var ShowTripPage = {
     searchPlace: function() {
       console.log("searching for a place");
       var newPlace = this.newPlace;
-      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=APIKEY=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id&key=APIKEY").then(function(response) {
         this.results = response.data;
         console.log(response.data);
       }.bind(this));
@@ -178,7 +178,10 @@ var ShowTripPage = {
     },
     deletePlace: function(inputPlace) {
       console.log("deleting place");
+      // console.log(inputPlace);
+      console.log(inputPlace.id);
       var theParams = {id: inputPlace.id };
+      // console.log(theParams);
       axios.delete("/api/places/" + inputPlace.id, theParams).then(function(response) {
         console.log("place has been deleted");
       });
