@@ -468,11 +468,11 @@
         </h5>
         <hr class="mb-5 w-50 mx-auto" />
       </div>
-      <!-- Button trigger modal -->
-      <div>
+    <!-- Button trigger modal -->
+<!--       <div>
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Launch demo modal </button>
         <hr class="mb-5 w-50 mx-auto" />
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-md-4" v-for="trip in trips">
           <div class="card-effect card-effect-front-to-back">
@@ -485,27 +485,34 @@
                 </a>
               </div>
             </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title mb-1">
-                {{trip.name}}
-              </h5>
-            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title mb-1">
+              {{trip.name}}
+            </h5>
           </div>
         </div>
-        <hr class="mb-5 w-50 mx-auto" />
-        <div class="addTrip">
-        <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">Add a Trip</h5>
-          <ul>
-            <li class="text-danger" v-for="error in errors">{{ error }}</li>
-          </ul>
-        <div class="form-group">
-          <label>Name:</label> 
-          <input type="text" class="form-control" v-model="name">
-          <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+      </div>
+      <hr class="mb-5 w-50 mx-auto" />
+      <div class="addTrip">
+        <div id="content">
+          <form class="form-login form-wrapper form-narrow">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <h3 class="title-divider">
+              <span>Add a Trip</span> 
+            </h3>
+            <div class="form-group">
+              <label class="sr-only">Name</label>
+              <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <template id="show-trip-page">
@@ -517,8 +524,8 @@
         <h2 class="text-center text-uppercase font-weight-bold my-0">
           {{trip.name}}
         </h2>
-        <hr class="mb-5 w-50 mx-auto" />
-      </div>
+      </di7v>
+      <hr class="mb-5 w-50 mx-auto" />
       <div class="row">
         <div class="col-md-4" v-for="place in trip.places">
           <div class="card">
@@ -528,7 +535,8 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><p>{{place.address}}</p></li>
               <li class="list-group-item"><p>Phone Number: {{place.phone_number}}</p></li>
-              <li class="list-group-item"><p>Opening Hours: {{place.opening_hours}}</p></li>
+              <li class="list-group-item"><p>Opening Hours </p>
+                <p>{{place.opening_hours}}</p></li>
             </ul>
             <div class="card-footer">
               <small class="text-muted">
@@ -540,10 +548,37 @@
             </div>
           </div>
         </div>
-        <hr class="mb-5 w-50 mx-auto" />
-        <!-- put add place here -->
+      </div>
+      <hr class="mb-5 w-50 mx-auto" />
+      <div class="newPlace">
+        <div id="content">
+          <form class="form-login form-wrapper form-narrow">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <h3 class="title-divider">
+              <span>Add a Place</span> 
+            </h3>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search for a Place" v-model="newPlace">
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="searchPlace()">Submit</button>
+            <div v-for="candidate in results.candidates">
+              <hr class="mb-5 w-50 mx-auto" />
+              <h3 class="text-center font-weight-light mt-2 mb-0 text-muted">
+                <p>Return Results</p>
+              </h3>
+              <p>Name: {{candidate.name}}</p>
+              <p>Address: {{candidate.formatted_address}}</p>
+              <p>Place_ID: {{candidate.place_id}}</p>
+              <button type="button" class="btn btn-primary" v-on:click="addToTrip(candidate)">Add to your trip</button>
+              <hr>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <!-- authentication -->

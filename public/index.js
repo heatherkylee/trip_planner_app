@@ -98,7 +98,8 @@ var ShowTripPage = {
       results: [],
       candidate: {place_id: ""},
       details: [],
-      addTripDetails: []
+      addTripDetails: [],
+      errors: []
     };
   },
   created: function() {
