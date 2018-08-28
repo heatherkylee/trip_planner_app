@@ -73,17 +73,10 @@ var EditTripPage = {
         name: this.name,
       };
       axios
-        .patch("/api/trips/" + this.$route.params.id, params)
-        .then(function(response) {
-          router.push("/trips" + this.trip.id);
+        .patch("/api/trips/" + this.$route.params.id, params).then(function(response) {
           console.log("Trip name has been updated");
-        })
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-          }
-            .bind(this)
-        );
+          router.push("/trips/" + this.$route.params.id);
+        }.bind(this));
     }
   }
 };

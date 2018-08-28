@@ -518,14 +518,17 @@
 <template id="show-trip-page">
   <div clas="vue-component">
     <div class="container">
+      <br>
       <div data-animate="fadeIn" data-animate-duration="0.8">
-        <br>
         <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
         <h2 class="text-center text-uppercase font-weight-bold my-0">
           {{trip.name}}
         </h2>
-      </di7v>
-      <hr class="mb-5 w-50 mx-auto" />
+        <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+           <a v-bind:href=" '#/trips/' + this.trip.id +  '/edit'">Edit Trip</a> | <a href="#addAPlace">Add a Place</a>
+        </h5>
+        <hr class="mb-5 w-50 mx-auto" />
+      </div>
       <div class="row">
         <div class="col-md-4" v-for="place in trip.places">
           <div class="card">
@@ -542,7 +545,6 @@
               <small class="text-muted">
                 <div class="form-group">
                   <button class="btn btn-primary" v-on:click="deletePlace(place)">Delete</button>
-
                 </div>
               </small>
             </div>
@@ -557,7 +559,7 @@
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
             <h3 class="title-divider">
-              <span>Add a Place</span> 
+              <span><a name="addAPlace">Add a Place</a></span> 
             </h3>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Search for a Place" v-model="newPlace">
@@ -576,6 +578,28 @@
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="edit-trip-page">
+  <div class="vue-component">
+    <div id="content">
+      <div class="container">
+        <form class="form-login form-wrapper form-narrow">
+        <ul>
+          <li class="text-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+          <h3 class="title-divider">
+            <span>Edit Trip Name</span> 
+          </h3>
+          <div class="form-group">
+            <label class="sr-only">Name:</label>
+            <input type="text" class="form-control" v-model="name">
+          </div>
+          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+        </form>
       </div>
     </div>
   </div>
