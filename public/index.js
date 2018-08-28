@@ -57,12 +57,14 @@ var EditTripPage = {
       message: "Edit Trip",
       name: "",
       editTripName: "",
+      editTrip: [],
       errors: []
     };
   },
   created: function() {
     axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
       console.log(response.data);
+      this.editTrip = response.data;
       this.editTripName = response.data.name;
       this.name = this.editTripName;
     }.bind(this));
