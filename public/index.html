@@ -371,7 +371,10 @@
               <li class="list-group-item"><p>{{place.address}}</p></li>
               <li class="list-group-item"><p>Phone Number: {{place.phone_number}}</p></li>
               <li class="list-group-item"><p>Opening Hours </p>
-                <p>{{place.opening_hours}}</p></li>
+                <div v-for="hours in place.opening_hours">
+                  <p>{{hours}}</p>
+                </div>
+              </li>
             </ul>
             <div class="card-footer">
               <small class="text-muted">

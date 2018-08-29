@@ -130,7 +130,8 @@ var ShowTripPage = {
         console.log("adding to trip");
         var hours;
         if (response.data.result.opening_hours) {
-          hours = response.data.result.opening_hours.weekday_text.join(", ");
+          // hours = response.data.result.opening_hours.weekday_text.join(", ");
+          hours = response.data.result.opening_hours.weekday_text;
         } else {
           hours = "Not Available"; 
         }
@@ -183,7 +184,7 @@ var ShowTripPage = {
       });
       var index = this.trip.places.indexOf(inputPlace);
       this.trip.places.splice(index, 1);
-    },
+    }
   },
   computed: {}
 };
