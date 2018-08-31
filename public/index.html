@@ -1,191 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My App</title>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.js"></script>
-  <script src="index.js" defer></script>
-</head>
-<body>
-  <div id="vue-app">
-    <a href="/#/signup">Signup</a>
-    <a href="/#/login">Login</a>
-    <a href="/#/logout">Logout</a>
-    <a href="/#/trips/">My Trips</a>
-
-    <router-view></router-view>
-
+  <head>
+    <title>TRIP HERE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- @todo: fill with your company info or remove -->
+    <meta name="description" content="">
+    <meta name="author" content="Themelize.me">
+    
+    <!-- Bootstrap v4.1.3 CSS via CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
+    <!-- Plugins required on all pages NOTE: Additional non-required plugins are loaded ondemand as of AppStrap 2.5 -->
+    
+    <!-- Theme style -->
+    <link href="assets/css/theme-style.min.css" rel="stylesheet">
+    
+    <!--Your custom colour override-->
+    <link href="#" id="colour-scheme" rel="stylesheet">
+    
+    <!-- Your custom override -->
+    <link href="assets/css/custom-style.css" rel="stylesheet">
+    
+    
+    
+    <!-- Optional: ICON SETS -->
+    <!-- Iconset: Font Awesome 5.0.13 via CDN -->
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <!-- Iconset: flag icons - http://lipis.github.io/flag-icon-css/ -->
+    <link href="assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <!-- Iconset: ionicons - http://ionicons.com/ -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <!-- Iconset: Linearicons - https://linearicons.com/free -->
+    <link href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" rel="stylesheet">
+    <!-- Iconset: Lineawesome - https://icons8.com/articles/line-awesome -->
+    <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
+    
+    
+    <!-- Le fav and touch icons - @todo: fill with your icons or remove, try https://realfavicongenerator.net -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/manifest.json">
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico">
+    <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
+    
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Rambla:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,400,700' rel='stylesheet' type='text/css'>
+    
+    <!--Plugin: Retina.js (high def image replacement) - @see: http://retinajs.com/-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/vue2-filters/dist/vue2-filters.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="index.js" defer></script>
+  </head>
+  
+  <!-- ======== @Region: body ======== -->
+  <body class="page page-index navbar-layout-default">
+    <div id="vue-app">  
+    <!-- @plugin: page loading indicator, delete to remove loader -->
+    <div class="page-loader" data-toggle="page-loader"></div>
+      
+    <a id="#top" href="#content" class="sr-only">Skip to content</a> 
+      
+    <!-- ======== @Region: #header ======== -->
+    <div id="header">
+        
+      <!--Header upper region-->
+      <div class="header-upper">
+        <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.htm) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .order-first or/and .order-last classes to make an element show first or last within .header-inner or .headr-block elements -->
+        <div class="header-inner container">
+          <!--user menu-->
+          <div class="header-block-flex order-1 mr-auto">
+          </div>
+        </div>
+      </div>
+    <div data-toggle="sticky">
+          
+      <!--Header & Branding region-->
+      <div class="header">
+        <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.html) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .order-first or/and .order-last classes to make an element show first or last within .header-inner or .headr-block elements -->
+        <div class="header-inner container">
+          <!--branding/logo -->
+          <div class="header-brand">
+            <a class="header-brand-text" href="#/" title="Home">
+              <h1 class="h2">
+                <span class="header-brand-text-alt">TRIP</span>HERE<span class="header-brand-text-alt">.</span>
+              </h1>
+            </a>
+            <div class="header-divider d-none d-lg-block"></div>
+            <div class="header-slogan d-none d-lg-block">Trip planning made easy.</div>
+          </div>
+          <!-- other header content -->
+          <div class="header-block order-12">
+              
+            <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
+            <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
+          </div>
+            
+          <div class="navbar navbar-expand-md navbar-static-top">
+            <!--everything within this div is collapsed on mobile-->
+            <div class="navbar-main collapse">
+              <!--main navigation-->
+              <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
+                <!-- Log In -->
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">Login</a> 
+                  <!-- Menu -->
+                  <div class="dropdown-menu">
+                    <a href="#/login" class="dropdown-item">Login</a> <a href="#/logout" class="dropdown-item">Logout</a> <a href="#/signup" class="dropdown-item">Sign Up</a>
+                  </div>
+                </li>
+                <!-- <a href="#/trips" class="nav-link">My Trips</a>  -->
+            </div>
+            <!--/.navbar-collapse -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
-</body>
-</html>
 
+  <router-view></router-view>
+      
+  <!-- ======== @Region: #footer ======== -->
+  <footer id="footer" class="p-0">
+    <div class="container pt-6 pb-5">
+      <div class="row">
+        <div class="col-md-6">
+          <!--@todo: replace with company contact details-->
+          <h4 class="text-uppercase text-white">
+            Contact Us
+          </h4>
+          <address>
+            <ul class="list-unstyled">
+              <li>
+                <abbr title="Email"><i class="fa fa-envelope fa-fw"></i></abbr>
+                heather.k.lee@gmail.com
+              </li>
+              <li>
+                <abbr title="Address"><i class="fa fa-home fa-fw"></i></abbr>
+                New York, NY
+              </li>
+            </ul>
+          </address>
+        </div>
+        
+        <div class="col-md-6">
+          <h4 class="text-uppercase text-white">
+            About Us
+          </h4>
+          <p>TripHere is designed to help you plan your next trip!  Add all of the places you want to visit during your trip and view pertinent information in one place.  That's it - planning made easy.</p>
+        </div> 
+      </div>
+      
+    </div>
+    <hr class="my-0 hr-blank op-2" />
+    <!--@todo: replace with company copyright details-->
+    <div class="bg-inverse-dark text-sm py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">Site template by <a href="appstraptheme.com" class="footer-link">AppStrap</a> | Copyright 2018 &copy; AppStrap</p>
+          </div>
+          <!-- <div class="col-md-6">
+            <ul class="list-inline footer-links float-md-right mb-0">
+              <li class="list-inline-item"><a href="#">Terms</a></li>
+              <li class="list-inline-item"><a href="#">Privacy</a></li>
+              <li class="list-inline-item"><a href="#">Contact Us</a></li>
+            </ul>
+          </div> -->
+        </div>
+        <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden" title="Back to top" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
+      </div>
+    </div>
+  </footer>
+  </div>
+    
+    
+    <!--jQuery 3.3.1 via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper 1.14.3 via CDN, needed for Bootstrap Tooltips & Popovers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    
+    <!-- Bootstrap v4.1.3 JS via CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
+    
+  <!-- Google Maps Script -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
+     
+    <!--Custom scripts & AppStrap API integration -->
+    <script src="assets/js/custom-script.js"></script>
+    <!--AppStrap scripts mainly used to trigger libraries/plugins -->
+    <script src="assets/js/script.min.js"></script>
+  </body>
+</html>
 
 <template id="home-page">
   <div class="vue-component">
-
-    <h1>{{ message }}</h1>
-
-  </div>
+        <!-- ======== @Region: #highlighted ======== -->
+    <div id="highlighted">
+      <!-- Image Banner: Use the the data-bg-img functionality to create a simple image banner Use spacer classes to make the banner larger with padding, allows for easy responsive changes too see: elements-ctas.htm To make the banner full height add the attributes: data-toggle="full-height" data-offset="#header" -->
+      <div class="bg-white overlay overlay-op-6 text-center px-3 py-5 py-lg-10 flex-valign" data-bg-img="assets/img/backgrounds/man-with-open-arms-saluting-the-nature-picjumbo-com.jpg" data-css='{"background-position": "center bottom"}' data-toggle="full-height" data-offset="#header">
+        <h2 class="display-4 text-white" data-animate="fadeIn" data-animate-delay="0.2">
+          YOUR TRIP. TRIP HERE.
+        </h2>
+        <h3 class="text-grey font-weight-normal" data-animate="fadeIn" data-animate-delay="0.35">
+          Start planning your next trip now!
+        </h3>
+        <hr class="hr-primary hr-lg w-20 mx-auto my-4" data-animate="fadeIn" data-animate-delay="0.45" />
+        <div> <a href="#/signup" class="btn btn-primary btn-rounded btn-lg py-lg-3 px-lg-5" data-animate="fadeIn" data-animate-delay="0.55">Sign Up</a>
+        </div>
+      </div>
+    </div>
+      
+      <!-- ======== @Region: #content ======== -->
+      <div id="content" class="p-0">
+        <!-- Features -->
+        <div id="features" class="container py-4 py-lg-6">
+          <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
+          <h2 class="text-center text-uppercase font-weight-bold my-0">
+            Core Features
+          </h2>
+          <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+            Great features, great product!
+          </h5>
+          <hr class="mb-5 w-50 mx-auto" />
+          <div class="row text-center">
+            <div class="col-lg-4 py-1">
+              <i class="la la-tachometer icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.1"></i> 
+              <h5 class="mt-1 op-8">
+                Fully Optimized
+              </h5>
+              <p class="text-sm text-black-50">Aliquip facilisis letalis obruo populus sino virtus. Augue nunc quis.</p>
+            </div>
+            <div class="col-lg-4 py-1">
+              <i class="la la-wrench icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.2"></i> 
+              <h5 class="mt-1 op-8">
+                Free Support
+              </h5>
+              <p class="text-sm text-black-50">Accumsan antehabeo comis gemino humo secundum torqueo. Damnum fere in nobis odio tego tincidunt.</p>
+            </div>
+            <div class="col-lg-4 py-1">
+              <i class="la la-rocket icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.3"></i> 
+              <h5 class="mt-1 op-8">
+                Free Upgrades
+              </h5>
+              <p class="text-sm text-black-50">Incassum lenis letalis quia ullamcorper validus. Inhibeo os patria refoveo.</p>
+            </div>
+            <div class="col-lg-4 py-1">
+              <i class="la la-area-chart icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.4"></i> 
+              <h5 class="mt-1 op-8">
+                99.9% Uptime
+              </h5>
+              <p class="text-sm text-black-50">Diam immitto laoreet utinam. At defui euismod inhibeo jumentum nobis quis tego.</p>
+            </div>
+            <div class="col-lg-4 py-1">
+              <i class="la la-users icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.5"></i> 
+              <h5 class="mt-1 op-8">
+                Multiuser
+              </h5>
+              <p class="text-sm text-black-50">Accumsan adipiscing augue bene euismod iaceo ludus ymo.</p>
+            </div>
+            <div class="col-lg-4 py-1">
+              <i class="la la-plug icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.6"></i> 
+              <h5 class="mt-1 op-8">
+                Plug n play
+              </h5>
+              <p class="text-sm text-black-50">Adipiscing luptatum scisco turpis validus. Abbas appellatio diam paulatim quidne refero turpis.</p>
+            </div>
+          </div>
+        </div>
+    </div> 
 </template>
 
-<!-- Trips -->
-
 <template id="trips-page">
-  <div class="vue-component">
-
-    <h1>My Trips!</h1>
-    <hr>
-    <div v-for="trip in trips">
-      <p>Trip ID: {{trip.id}}</p>
-      <p>Trip Name: {{trip.name}}</p>
-      <!-- <div v-for="place in trip.places">
-        <p>{{place.place_id}}</p>
-      </div> -->
-      <a v-bind:href="'/#/trips/' + trip.id "  class="btn btn-primary">View Trip</a>
-      <hr>
-    </div>
+  <div clas="vue-component">
     <div class="container">
-      <h1>Add a Trip</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Name:</label> 
-        <input type="text" class="form-control" v-model="name">
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+      <div data-animate="fadeIn" data-animate-duration="0.8">
+        <br>
+        <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
+        <h2 class="text-center text-uppercase font-weight-bold my-0">
+          YOUR TRIPS
+        </h2>
+        <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+          Exicting things are happening!
+        </h5>
+        <hr class="mb-5 w-50 mx-auto" />
+      </div>
+  <div class="row">
+    <div class="col-md-4" v-for="trip in trips">
+      <div class="card-effect card-effect-front-to-back">
+        <img class="card-img-top img-fluid" src="https://images.indianexpress.com/2016/09/woman759.jpg" alt="Bruce Lawson">
+        <div class="card-back rounded bg-dark bg-op-8 text-white flex-valign text-center p-3">
+          <div>
+            <a v-bind:href="'/#/trips/' + trip.id "  class="text-white">
+              <i class="fa fa-arrow-circle-right icon-3x text-white"></i> 
+              <p><span class="h5 mt-4">{{trip.name}}</span></p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title mb-1">
+          {{trip.name}}
+        </h5>
+      </div>
     </div>
   </div>
+  <hr class="mb-5 w-50 mx-auto" />
+    <div class="addTrip">
+        <div id="content" class="form-login form-wrapper form-narrow">
+          <ul>
+            <li class="text-danger" v-for="error in errors">{{ error }}</li>
+          </ul>
+          <h3 class="title-divider">
+            <span>Add a Trip</span> 
+          </h3>
+          <div class="form-group">
+            <label class="sr-only">Name</label>
+            <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+          </div>
+          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+        </div>
+      </div>
+    </div>
+</div>
 </template>
 
 <template id="show-trip-page">
-  <div class="vue-component">
-
-    <h1>{{trip.name}}</h1>
-    <button v-on:click="editTrip(trip)">Edit Trip Name</button>
-    <button v-on:click="deleteTrip(trip)">Delete this trip</button>
-    <hr>
-
-    <div v-for="place in trip.places">
-      <p><a v-bind:href="place.website">{{place.name}}</a></p>
-      <p>{{place.address}}</p>
-      <p>Phone Number: {{place.phone_number}}</p>
-      <p>Opening Hours: {{place.opening_hours}}</p>
-      <!--   <div v-for="day in place.opening_hours">
-        </div> -->
-      <p><a v-bind:href="place.website">{{place.website}}</a></p>
-      <p>Place ID: {{place.place_id}}</p>
-      <button v-on:click="deletePlace(place)">Delete this places</button>
-      <hr>
-    </div>
-
-    <div>
-      <div>
-        <p>Search for a place:</p>
-        <input ref="autocomplete" 
-            placeholder="Enter name of place" 
-            class="search-location"
-            onfocus="value = ''" 
-            type="text" 
-            id="newPlace" 
-            v-model="newPlace">
+  <div clas="vue-component">
+    <div class="container">
+      <br>
+      <div data-animate="fadeIn" data-animate-duration="0.8">
+        <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
+        <h2 class="text-center text-uppercase font-weight-bold my-0">
+          {{trip.name}}
+        </h2>
+        <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+           <a href="#/trips/">View All Trips</a> | <a v-bind:href=" '#/trips/' + this.trip.id +  '/edit'">Edit Trip</a> | <a href="#addAPlace">Add a Place</a>
+        </h5>
+        <hr class="mb-5 w-50 mx-auto" />
       </div>
-      <div v-if="addToTrip">
-        <p><a v-bind:href="currentPlace.website">{{currentPlace.name}}</a></p>
-        <p>{{currentPlace.formatted_address}}</p>
-        <p>{{currentPlace.place_id}}</p>
-        <button v-on:click="addToTrip(currentPlace)">Add to Trip</button>
+      <div class="row">
+        <div class="col-md-4" v-for="place in trip.places">
+        <!-- <div class="col-md-4" v-for="place in orderBy(trip.places, name, sortAsc)"> -->
+          <div class="card">
+            <h4 class="card-header">
+              <a v-bind:href="place.website">{{place.name}}</a>
+            </h4>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><p>{{place.address}}</p></li>
+              <li class="list-group-item"><p>Phone Number: {{place.phone_number}}</p></li>
+              <li class="list-group-item"><p>Opening Hours </p>
+                <div v-for="hours in place.opening_hours">
+                  <p>{{hours}}</p>
+                </div>
+              </li>
+            </ul>
+            <div class="card-footer">
+              <small class="text-muted">
+                <div class="form-group">
+                  <button class="btn btn-primary" v-on:click="deletePlace(place)">Delete</button>
+                </div>
+              </small>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-<!--     <div v-for="candidate in results.candidates">
-      <p>Return Results</p>
-      <p>Name: {{candidate.name}}</p>
-      <p>Address: {{candidate.formatted_address}}</p>
-      <p>Place_ID: {{candidate.place_id}}</p>
-      <button v-on:click="addToTrip(candidate)">Add to your trip</button>
-      <hr>
-    </div> -->
-<!--     <div v-if="details[0]">
-      <p>Place Details</p>
-      <p>Name: {{ details[0].result.name }}</p>
-      <p>Website: {{ details[0].result.website }}</p>
-      <p>Address: {{ details[0].result.formatted_address }} </p>
-      <p>Phone Number: {{ details[0].result.formatted_phone_number }} </p>
-      <p>Hours of Operation: 
-        <div v-for=" weekday_hours in details[0].result.opening_hours.weekday_text"></p>
-          <p>{{weekday_hours}}</p>
-        </div> -->
+      <hr class="mb-5 w-50 mx-auto" />
+      <div class="newPlace">
+        <div id="content">
+          <form class="form-login form-wrapper form-narrow">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <h3 class="title-divider">
+              <span><a name="addAPlace">Add a Place</a></span> 
+            </h3>
+            <div class="form-group">
+              <input ref="autocomplete" 
+                placeholder="Search for a Place" 
+                class="form-control"
+                class="search-location" 
+                onfocus="value = ''" 
+                type="text" 
+                id="newPlace" 
+                v-model="newPlace">
+            </div>
+<!--             <button type="button" class="btn btn-primary" v-on:click="searchPlace()">Submit</button> -->
+<!--             <div v-for="candidate in results.candidates">
+              <hr class="mb-5 w-50 mx-auto" />
+              <h3 class="text-center font-weight-light mt-2 mb-0 text-muted">
+                <p>Return Results</p>
+              </h3>
+              <p>Name: {{candidate.name}}</p>
+              <p>Address: {{candidate.formatted_address}}</p>
+              <p>Place_ID: {{candidate.place_id}}</p>
+              <button type="button" class="btn btn-primary" v-on:click="addToTrip(candidate)">Add to your trip</button>
+              <hr>
+            </div> -->
+<!--             {{currentPlace}} -->
+            <div>
+              <hr class="mb-5 w-50 mx-auto" />
+              <h3 class="text-center font-weight-light mt-2 mb-0 text-muted">
+                <p>Return Results</p>
+              </h3>
+              <p><a v-bind:href="currentPlace.website">{{currentPlace.name}}</a></p>
+              <p>{{currentPlace.formatted_address}}</p>
+              <p>{{currentPlace.place_id}}</p>
+              <hr>
+              <button type="button" class="btn btn-primary" v-on:click="addToTrip(currentPlace)">Add to your trip</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <template id="edit-trip-page">
   <div class="vue-component">
-
-    <div class="container">
-      <h1>Edit Trip</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Name:</label> 
-        <input type="text" class="form-control" v-model="name">
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    <br>
+    <div data-animate="fadeIn" data-animate-duration="0.8">
+      <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
+      <h2 class="text-center text-uppercase font-weight-bold my-0">
+        {{editTrip.name}}
+      </h2>
+      <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+         <a href="#/trips/">View All Trips </a> | <a v-bind:href=" '#/trips/' + this.editTrip.id ">View {{editTrip.name}} </a>
+      </h5>
+      <hr class="mb-5 w-50 mx-auto" />
     </div>
-
+    <div id="content">
+      <div class="container">
+        <form class="form-login form-wrapper form-narrow">
+        <ul>
+          <li class="text-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+          <h3 class="title-divider">
+            <span>Edit Trip Name</span> 
+          </h3>
+          <div class="form-group">
+            <label class="sr-only">Name:</label>
+            <input type="text" class="form-control" v-model="name">
+          </div>
+          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
-<!-- Authentication -->
+<!-- authentication -->
 
 <template id="signup-page">
   <div class="vue-component">
-    <div class="container">
-      <h1>Signup</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Name:</label> 
-        <input type="text" class="form-control" v-model="name">
+    <div id="content">
+      <div class="container">
+        <!-- Signup form -->
+        <form class="form-login form-wrapper form-narrow">
+        <ul>
+          <li class="text-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+          <h3 class="title-divider">
+            <span>Signup</span> 
+          </h3>
+          <div class="form-group">
+            <label class="sr-only">Name</label>
+            <input type="text" class="form-control" placeholder="Name" v-model="name">
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Email</label>
+            <input type="email" class="form-control email" placeholder="Email" v-model="email">
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Password</label>
+            <input type="password" class="form-control" placeholder="Password" v-model="password">
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Password confirmation</label>
+            <input type="password" class="form-control" placeholder="Password Confirmation" v-model="passwordConfirmation">
+          </div>
+          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" class="form-control" v-model="email">
-      </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" class="form-control" v-model="password">
-      </div>
-      <div class="form-group">
-        <label>Password confirmation:</label>
-        <input type="password" class="form-control" v-model="passwordConfirmation">
-      </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
   </div>
-</template>
+</template> 
 
 <template id="login-page">
   <div class="vue-component">
-
-    <div class="container">
-      <h1>Login</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" class="form-control" v-model="email">
+    <div id="content">
+      <div class="container">
+        <!-- Login form -->
+        <form class="form-login form-wrapper form-narrow">
+        <ul>
+          <li class="text-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+          <h3 class="title-divider">
+            <span>Login</span> 
+          </h3>
+          <div class="form-group">
+            <label class="sr-only">Email</label>
+            <input type="email" class="form-control email" placeholder="Email" v-model="email">
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Password</label>
+            <input type="password" class="form-control" placeholder="Password" v-model="password">
+          </div>
+          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" class="form-control" v-model="password">
-      </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
     </div>
-
   </div>
 </template>

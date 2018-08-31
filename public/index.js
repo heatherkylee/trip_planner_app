@@ -176,8 +176,10 @@ var ShowTripPage = {
     //     console.log(error.response);
     //   });
     // },
+
     addToTrip: function(inputCurrentPlace) {
-      // console.log(inputCurrentPlace);
+      console.log("printing input current place");
+      console.log(inputCurrentPlace);
       this.results = [];
       var tripID = {
         place_id: inputCurrentPlace.place_id

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <div id="vue-app">
+    <a href="/#/signup">Signup</a>
+    <a href="/#/login">Login</a>
+    <a href="/#/logout">Logout</a>
+    <a href="/#/trips/">My Trips</a>
+
+    <router-view></router-view>
+
+  </div>
+   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
+</body>
+</html>
+
+
+<template id="home-page">
+  <div class="vue-component">
+
+    <h1>{{ message }}</h1>
+
+  </div>
+</template>
+
+<!-- Trips -->
+
+<template id="trips-page">
+  <div class="vue-component">
+
+    <h1>My Trips!</h1>
+    <hr>
+    <div v-for="trip in trips">
+      <p>Trip ID: {{trip.id}}</p>
+      <p>Trip Name: {{trip.name}}</p>
+      <!-- <div v-for="place in trip.places">
+        <p>{{place.place_id}}</p>
+      </div> -->
+      <a v-bind:href="'/#/trips/' + trip.id "  class="btn btn-primary">View Trip</a>
+      <hr>
+    </div>
+    <div class="container">
+      <h1>Add a Trip</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="show-trip-page">
+  <div class="vue-component">
+
+    <h1>{{trip.name}}</h1>
+    <button v-on:click="editTrip(trip)">Edit Trip Name</button>
+    <button v-on:click="deleteTrip(trip)">Delete this trip</button>
+    <hr>
+
+    <div v-for="place in trip.places">
+      <p><a v-bind:href="place.website">{{place.name}}</a></p>
+      <p>{{place.address}}</p>
+      <p>Phone Number: {{place.phone_number}}</p>
+      <p>Opening Hours: {{place.opening_hours}}</p>
+      <!--   <div v-for="day in place.opening_hours">
+        </div> -->
+      <p><a v-bind:href="place.website">{{place.website}}</a></p>
+      <p>Place ID: {{place.place_id}}</p>
+      <button v-on:click="deletePlace(place)">Delete this places</button>
+      <hr>
+    </div>
+
+    <div>
+      <div>
+        <p>Search for a place:</p>
+        <input ref="autocomplete" 
+            placeholder="Enter name of place" 
+            class="search-location"
+            onfocus="value = ''" 
+            type="text" 
+            id="newPlace" 
+            v-model="newPlace">
+      </div>
+      <div v-if="addToTrip">
+        <p><a v-bind:href="currentPlace.website">{{currentPlace.name}}</a></p>
+        <p>{{currentPlace.formatted_address}}</p>
+        <p>{{currentPlace.place_id}}</p>
+        <button v-on:click="addToTrip(currentPlace)">Add to Trip</button>
+      </div>
+    </div>
+<!--     <div v-for="candidate in results.candidates">
+      <p>Return Results</p>
+      <p>Name: {{candidate.name}}</p>
+      <p>Address: {{candidate.formatted_address}}</p>
+      <p>Place_ID: {{candidate.place_id}}</p>
+      <button v-on:click="addToTrip(candidate)">Add to your trip</button>
+      <hr>
+    </div> -->
+<!--     <div v-if="details[0]">
+      <p>Place Details</p>
+      <p>Name: {{ details[0].result.name }}</p>
+      <p>Website: {{ details[0].result.website }}</p>
+      <p>Address: {{ details[0].result.formatted_address }} </p>
+      <p>Phone Number: {{ details[0].result.formatted_phone_number }} </p>
+      <p>Hours of Operation: 
+        <div v-for=" weekday_hours in details[0].result.opening_hours.weekday_text"></p>
+          <p>{{weekday_hours}}</p>
+        </div> -->
+    </div>
+  </div>
+</template>
+
+<template id="edit-trip-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Edit Trip</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<!-- Authentication -->
+
+<template id="signup-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Signup</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password confirmation:</label>
+        <input type="password" class="form-control" v-model="passwordConfirmation">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+</template>
+
+<template id="login-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Login</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
