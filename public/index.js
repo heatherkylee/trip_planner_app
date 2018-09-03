@@ -4,7 +4,7 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!"
+      message: "Welcome to Trip Here"
     };
   },
   created: function() {},
@@ -90,19 +90,40 @@ var ShowTripPage = {
       trip: {},
       message: "Simple Search",
       newPlace: "",
-      results: [],
-      candidate: {place_id: ""},
+      results: [{ geometry: {location: {lat: "", lng: ""}}}],
+      // candidate: {place_id: ""},
       details: [],
       addTripDetails: [],
       errors: [],
-      currentPlace: {}
+      currentPlace: {},
+      lat: "",
+      lng: "",
+      map: "",
+      marker: "",
+      title: ""
     };
   },
   created: function() {
     axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
       this.trip = response.data;
       console.log(this.trip);
-    }.bind(this));
+      this.lat = parseFloat(this.trip.places[0].lat, 10);
+      this.lng = parseFloat(this.trip.places[0].lng, 10);
+
+      var myLatLng = {lat: parseFloat(this.lat, 10), lng: parseFloat(this.lng, 10)};
+      console.log(myLatLng);
+      this.map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 12
+      });
+
+      for (var i = 0; i < this.trip.places.length; i++) {
+        this.marker = new google.maps.Marker({
+          position: {lat: parseFloat(this.trip.places[i].lat, 10), lng: parseFloat(this.trip.places[i].lng, 10)},
+          map: this.map,
+          title: this.trip.places[i].name
+      });
+    }}.bind(this));
   },
   mounted: function() {
     console.log("beginning of mounted");
@@ -115,108 +136,61 @@ var ShowTripPage = {
       console.log(this.currentPlace);
       this.newPlace = "";
     });
-
   },
   methods: {
-    // searchPlace: function() {
-    //   console.log("searching for a place");
-    //   var newPlace = this.newPlace;
-    //   console.log(newPlace);
-    //   axios.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=" + newPlace + "&inputtype=textquery&fields=name,formatted_address,place_id&key=APIKEY").then(function(response) {
-    //     this.results = response.data;
-    //     console.log(response.data);
-    //   }.bind(this));
-
-    //   this.newPlace = "";
-    // },
-    // addToTrip: function(inputCandidate) {
-    //   // console.log(inputCandidate);
-    //   this.results = [];
-    //   var tripID = {
-    //     place_id: inputCandidate.place_id
-    //   };
-
-    //   axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + tripID.place_id + "&fields=name,formatted_address,formatted_phone_number,opening_hours,website,photos,place_id&key=APIKEY").then(function(response) {
-    //     console.log("place details");
-    //     console.log(response.data);
-    //     // console.log("****");
-    //     // console.log(this.details);
-    //     console.log("adding to trip");
-    //     var hours;
-    //     if (response.data.result.opening_hours) {
-    //       // hours = response.data.result.opening_hours.weekday_text.join(", ");
-    //       hours = response.data.result.opening_hours.weekday_text;
-    //     } else {
-    //       hours = "Not Available"; 
-    //     }
-    //     var phoneNumber;
-    //     if (response.data.result.formatted_phone_number) {
-    //       phoneNumber = response.data.result.formatted_phone_number;
-    //     } else {
-    //       phoneNumber = "Not Available"; 
-    //     }
-    //     var theParams = {
-    //       place_id: inputCandidate.place_id,
-    //       trip_id: this.$route.params.id,
-    //       name: response.data.result.name,
-    //       address: response.data.result.formatted_address,
-    //       phone_number: phoneNumber,
-    //       opening_hours: hours,
-    //       website: response.data.result.website
-    //     };
-    //     // console.log("printing the params");
-    //     // console.log(theParams);
-    //     axios.post("/api/places", theParams).then(function(response) {
-    //       console.log(response.data);
-    //       console.log("place has been added");
-    //       this.trip.places.push(response.data);
-    //     }.bind(this));
-
-    //   }.bind(this)).catch(function(error) {
-    //     console.log(error.response);
-    //   });
-    // },
-
     addToTrip: function(inputCurrentPlace) {
       console.log("printing input current place");
       console.log(inputCurrentPlace);
       this.results = [];
-      var tripID = {
-        place_id: inputCurrentPlace.place_id
-      };
-      console.log("adding to trip");
-      var hours;
-      if (inputCurrentPlace.opening_hours) {
-        // hours = response.data.result.opening_hours.weekday_text.join(", ");
-        hours = inputCurrentPlace.opening_hours.weekday_text;
-      } else {
-        hours = "Not Available"; 
-      }
-      var phoneNumber;
-      if (inputCurrentPlace.international_phone_number) {
-        phoneNumber = inputCurrentPlace.international_phone_number;
-      } else {
-        phoneNumber = "Not Available"; 
-      }
-      var theParams = {
-        place_id: inputCurrentPlace.place_id,
-        trip_id: this.$route.params.id,
-        name: inputCurrentPlace.name,
-        address: inputCurrentPlace.formatted_address,
-        phone_number: phoneNumber,
-        opening_hours: hours,
-        website: inputCurrentPlace.website
-      };
-      console.log("printing the params");
-      console.log(theParams);
 
-      axios.post("/api/places", theParams).then(function(response) {
-        console.log(response.data);
-        console.log("place has been added");
-        this.trip.places.push(response.data);
-        this.currentPlace = {};
+      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + this.currentPlace.place_id + "&fields=name,geometry&key=APIKEY").then(function(response) {
+        var lat = response.data.result.geometry.location.lat;
+        var lng = response.data.result.geometry.location.lng;
+
+        console.log(lat);
+        console.log(lng);
+
+        var tripID = {
+          place_id: inputCurrentPlace.place_id
+        };
+        console.log("adding to trip");
+        var hours;
+        if (inputCurrentPlace.opening_hours) {
+          hours = inputCurrentPlace.opening_hours.weekday_text;
+        } else {
+          hours = "Not Available"; 
+        }
+        var phoneNumber;
+        if (inputCurrentPlace.international_phone_number) {
+          phoneNumber = inputCurrentPlace.international_phone_number;
+        } else {
+          phoneNumber = "Not Available"; 
+        }
+        console.log(inputCurrentPlace);
+        console.log(inputCurrentPlace.place_id);
+        console.log(this.$route.params.id);
+        var params = {
+          place_id: inputCurrentPlace.place_id,
+          trip_id: this.$route.params.id,
+          name: inputCurrentPlace.name,
+          address: inputCurrentPlace.formatted_address,
+          phone_number: phoneNumber,
+          opening_hours: hours,
+          website: inputCurrentPlace.website,
+          lat: lat,
+          lng: lng
+        };
+        console.log("printing the params");
+        console.log(params);
+
+        axios.post("/api/places", params).then(function(response) {
+          console.log(response.data);
+          console.log("place has been added");
+          this.trip.places.push(response.data);
+          this.currentPlace = {};
+        }.bind(this));
       }.bind(this));
-    },
+    },  
     deleteTrip: function(inputTrip) {
       console.log("deleting trip");
       var theParams = {id: this.$route.params.id };

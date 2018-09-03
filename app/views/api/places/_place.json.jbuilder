@@ -5,3 +5,5 @@ json.address place.address
 json.phone_number place.phone_number
 json.opening_hours place.opening_hours
 json.website place.website
+json.lat place.lat
+json.lng place.lng

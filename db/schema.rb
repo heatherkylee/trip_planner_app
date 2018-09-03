@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_234815) do
+ActiveRecord::Schema.define(version: 2018_09_03_142451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2018_08_28_234815) do
     t.string "phone_number"
     t.string "website"
     t.string "opening_hours", default: [], array: true
+    t.decimal "lat", precision: 13, scale: 9
+    t.decimal "lng", precision: 13, scale: 9
   end
 
   create_table "point_of_interests", force: :cascade do |t|

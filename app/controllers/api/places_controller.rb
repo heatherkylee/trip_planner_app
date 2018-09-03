@@ -24,7 +24,9 @@ class Api::PlacesController < ApplicationController
         address: params[:address],
         phone_number: params[:phone_number],
         opening_hours: params[:opening_hours],
-        website: params[:website]
+        website: params[:website],
+        lat: params[:lat],
+        lng: params[:lng]
       )
     @place.save
     render "show.json.jbuilder"

@@ -2,8 +2,21 @@
 <html lang="en">
   <head>
     <title>TRIP HERE</title>
+   <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
     <!-- @todo: fill with your company info or remove -->
@@ -62,23 +75,22 @@
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="https://unpkg.com/vue2-filters/dist/vue2-filters.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
     <script src="index.js" defer></script>
   </head>
   
   <!-- ======== @Region: body ======== -->
   <body class="page page-index navbar-layout-default">
+    <!-- <div id="map"></div> -->
     <div id="vue-app">  
     <!-- @plugin: page loading indicator, delete to remove loader -->
     <div class="page-loader" data-toggle="page-loader"></div>
       
     <a id="#top" href="#content" class="sr-only">Skip to content</a> 
-      
     <!-- ======== @Region: #header ======== -->
     <div id="header">
-        
       <!--Header upper region-->
       <div class="header-upper">
-        <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.htm) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .order-first or/and .order-last classes to make an element show first or last within .header-inner or .headr-block elements -->
         <div class="header-inner container">
           <!--user menu-->
           <div class="header-block-flex order-1 mr-auto">
@@ -89,7 +101,6 @@
           
       <!--Header & Branding region-->
       <div class="header">
-        <!-- all direct children of the .header-inner element will be vertically aligned with each other you can override all the behaviours using the flexbox utilities (flexbox.html) All elements with .header-brand & .header-block-flex wrappers will automatically be aligned inline & vertically using flexbox, this can be overridden using the flexbox utilities (flexbox.htm) Use .header-block to stack elements within on small screen & "float" on larger screens use .order-first or/and .order-last classes to make an element show first or last within .header-inner or .headr-block elements -->
         <div class="header-inner container">
           <!--branding/logo -->
           <div class="header-brand">
@@ -102,34 +113,33 @@
             <div class="header-slogan d-none d-lg-block">Trip planning made easy.</div>
           </div>
           <!-- other header content -->
-          <div class="header-block order-12">
-              
-            <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
-            <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
-          </div>
+        <div class="header-block order-12">
             
-          <div class="navbar navbar-expand-md navbar-static-top">
-            <!--everything within this div is collapsed on mobile-->
-            <div class="navbar-main collapse">
-              <!--main navigation-->
-              <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
-                <!-- Log In -->
-                <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">Login</a> 
-                  <!-- Menu -->
-                  <div class="dropdown-menu">
-                    <a href="#/login" class="dropdown-item">Login</a> <a href="#/logout" class="dropdown-item">Logout</a> <a href="#/signup" class="dropdown-item">Sign Up</a>
-                  </div>
-                </li>
-                <!-- <a href="#/trips" class="nav-link">My Trips</a>  -->
+          <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
+          <a href="#top" class="btn btn-link btn-icon header-btn float-right d-lg-none" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
+        </div>
+            
+        <div class="navbar navbar-expand-md navbar-static-top">
+          <!--everything within this div is collapsed on mobile-->
+          <div class="navbar-main collapse">
+            <!--main navigation-->
+            <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
+              <!-- Log In -->
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">Login</a> 
+                <!-- Menu -->
+                <div class="dropdown-menu">
+                  <a href="#/login" class="dropdown-item">Login</a> <a href="#/logout" class="dropdown-item">Logout</a> <a href="#/signup" class="dropdown-item">Sign Up</a>
+                </div>
+              </li>
+              <!-- <a href="#/trips" class="nav-link">My Trips</a>  -->
             </div>
-            <!--/.navbar-collapse -->
+          <!--/.navbar-collapse -->
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <router-view></router-view>
       
   <!-- ======== @Region: #footer ======== -->
@@ -197,7 +207,7 @@
     
     
   <!-- Google Maps Script -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARNGMy7JUZCj9DLUlyC2Xy9HN3yy2hmpY&libraries=places"></script> -->
      
     <!--Custom scripts & AppStrap API integration -->
     <script src="assets/js/custom-script.js"></script>
@@ -320,19 +330,21 @@
   </div>
   <hr class="mb-5 w-50 mx-auto" />
     <div class="addTrip">
-        <div id="content" class="form-login form-wrapper form-narrow">
-          <ul>
-            <li class="text-danger" v-for="error in errors">{{ error }}</li>
-          </ul>
-          <h3 class="title-divider">
-            <span>Add a Trip</span> 
-          </h3>
-          <div class="form-group">
-            <label class="sr-only">Name</label>
-            <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+      <form>
+          <div id="content" class="form-login form-wrapper form-narrow">
+            <ul>
+              <li class="text-danger" v-for="error in errors">{{ error }}</li>
+            </ul>
+            <h3 class="title-divider">
+              <span>Add a Trip</span> 
+            </h3>
+            <div class="form-group">
+              <label class="sr-only">Name</label>
+              <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
           </div>
-          <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
-        </div>
+        </form>
       </div>
     </div>
 </div>
@@ -352,6 +364,10 @@
         </h5>
         <hr class="mb-5 w-50 mx-auto" />
       </div>
+      <div id="map-container" class="z-depth-1" style="height: 500px">
+          <div id="map"></div>
+      </div>
+      <br>
       <div class="row">
         <div class="col-md-4" v-for="place in trip.places">
         <!-- <div class="col-md-4" v-for="place in orderBy(trip.places, name, sortAsc)"> -->
@@ -366,6 +382,9 @@
                 <div v-for="hours in place.opening_hours">
                   <p>{{hours}}</p>
                 </div>
+                 <div v-if="place.opening_hours.length == 0">
+                  <p>Not Available</p>
+                 </div>
               </li>
             </ul>
             <div class="card-footer">
@@ -396,7 +415,7 @@
                 onfocus="value = ''" 
                 type="text" 
                 id="newPlace" 
-                v-model="newPlace">
+                v-model="newPlace" />
             </div>
 <!--             <button type="button" class="btn btn-primary" v-on:click="searchPlace()">Submit</button> -->
 <!--             <div v-for="candidate in results.candidates">
