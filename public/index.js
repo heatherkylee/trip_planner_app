@@ -22,7 +22,10 @@ var TripsPage = {
       trips: [],
       // myTrips: []
       name: "",
+      location: "",
       tripID: 0,
+      locationLat: 0,
+      locationLng: 0,
       errors: []
     };
   },
@@ -34,17 +37,27 @@ var TripsPage = {
   },
   methods: {
     submit: function() {
-      var params = {
-        name: this.name,
-      };
-      axios
-        .post("/api/trips", params)
-        .then(function(response) {
-          this.tripID = response.data.id;
-          console.log(this.tripID);
-          this.trips.push(response.data);
-          router.push("/trips/" + this.tripID);
-        }.bind(this));
+      axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.location + "&key=APIKEY").then(function(response) {
+        this.locationLat = response.data.results[0].geometry.location.lat;
+        console.log(this.locationLat);
+        this.locationLng = response.data.results[0].geometry.location.lng;
+        console.log(this.locationLng);
+
+        var params = {
+          name: this.name,
+          location: this.location,
+          lat: this.locationLat,
+          lng: this.locationLng
+        };
+        axios
+          .post("/api/trips", params)
+          .then(function(response) {
+            this.tripID = response.data.id;
+            console.log(this.tripID);
+            this.trips.push(response.data);
+            router.push("/trips/" + this.tripID);
+          }.bind(this));
+      }.bind(this));
     }
   },
   computed: {}
@@ -87,53 +100,48 @@ var ShowTripPage = {
   template: "#show-trip-page",
   data: function() {
     return {
-      trip: {},
+      trip: {places:[]},
       message: "Simple Search",
       newPlace: "",
-      results: [{ geometry: {location: {lat: "", lng: ""}}}],
+      results: [{ geometry: {location: {lat: 0, lng: 0}}}],
       // candidate: {place_id: ""},
       details: [],
       addTripDetails: [],
       errors: [],
       currentPlace: {},
-      lat: "",
-      lng: "",
+      lat: 0,
+      lng: 0,
       map: "",
       marker: "",
       title: "",
-      infowindow: ""
     };
   },
   created: function() {
     axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
       this.trip = response.data;
       console.log(this.trip);
-      // this.lat = parseFloat(this.trip.places[0].lat, 10) || 40.7128;
-      // this.lng = parseFloat(this.trip.places[0].lng, 10) || 74.006;
-
-      var myLatLng = {lat: parseFloat(this.lat, 10), lng: parseFloat(this.lng, 10)};
-      // console.log(myLatLng);
       this.map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.7128, lng: 74.006},
+        center: {lat: parseFloat(this.trip.lat, 10), lng: parseFloat(this.trip.lng, 10)},
         zoom: 10
       });
 
       for (var i = 0; i < this.trip.places.length; i++) {
         this.marker = new google.maps.Marker({
           position: {lat: parseFloat(this.trip.places[i].lat, 10), lng: parseFloat(this.trip.places[i].lng, 10)},
+          // position: {lat: this.trip.places[i].lat, lng: this.trip.places[i].lng },
           map: this.map,
           title: this.trip.places[i].name
         });
 
-        this.infowindow = new google.maps.InfoWindow({
-          content: this.trip.places[i].name
-        });
+        // this.infowindow = new google.maps.InfoWindow({
+        //   content: this.trip.places[i].name
+        // });
 
-        this.marker.addListener('click', function() {
-          this.infowindow.open(map, this.marker);
-        });
-
-      }}.bind(this));
+        // this.marker.addListener('click', function() {
+        //   this.infowindow.open(map, this.marker);
+        // });
+      };
+    }.bind(this));
   },
   mounted: function() {
     console.log("beginning of mounted");
@@ -154,8 +162,6 @@ var ShowTripPage = {
       this.results = [];
 
       axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + this.currentPlace.place_id + "&fields=name,geometry&key=APIKEY").then(function(response) {
-        // var lat = response.data.result.geometry.location.lat;
-        // var lng = response.data.result.geometry.location.lng;
         this.lat = response.data.result.geometry.location.lat;
         this.lng = response.data.result.geometry.location.lng;
 

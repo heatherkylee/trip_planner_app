@@ -264,7 +264,10 @@
               </h3>
               <div class="form-group">
                 <label class="sr-only">Name</label>
-                <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+                Trip Name:
+                <p><input type="text" class="form-control" placeholder="Enter Your Trip Name" v-model="name"></p>
+                <label class="sr-only">Location</label>
+                Trip Location:<p><input type="text" class="form-control" placeholder="Enter Your Trip Location" v-model="location"></p>
               </div>
               <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
             </div>
@@ -283,6 +286,9 @@
         <h2 class="text-center text-uppercase font-weight-bold my-0">
           {{trip.name}}
         </h2>
+        <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
+          {{trip.location}}
+        </h5>
         <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
            <a href="#/trips/">View All Trips</a> | <a v-bind:href=" '#/trips/' + this.trip.id +  '/edit'">Edit Trip</a> | <a href="#addAPlace">Add a Place</a>
         </h5>

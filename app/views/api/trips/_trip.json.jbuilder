@@ -1,5 +1,8 @@
 json.id trip.id
 json.name trip.name
+json.location trip.location
+json.lat trip.lat
+json.lng trip.lng
 json.created trip.created_at
 json.last_updated trip.updated_at
 json.places trip.places
