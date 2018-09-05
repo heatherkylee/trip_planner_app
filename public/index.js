@@ -100,21 +100,22 @@ var ShowTripPage = {
       lng: "",
       map: "",
       marker: "",
-      title: ""
+      title: "",
+      infowindow: ""
     };
   },
   created: function() {
     axios.get("/api/trips/" + this.$route.params.id).then(function(response) {
       this.trip = response.data;
       console.log(this.trip);
-      this.lat = parseFloat(this.trip.places[0].lat, 10);
-      this.lng = parseFloat(this.trip.places[0].lng, 10);
+      // this.lat = parseFloat(this.trip.places[0].lat, 10) || 40.7128;
+      // this.lng = parseFloat(this.trip.places[0].lng, 10) || 74.006;
 
       var myLatLng = {lat: parseFloat(this.lat, 10), lng: parseFloat(this.lng, 10)};
-      console.log(myLatLng);
+      // console.log(myLatLng);
       this.map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 12
+        center: {lat: 40.7128, lng: 74.006},
+        zoom: 10
       });
 
       for (var i = 0; i < this.trip.places.length; i++) {
@@ -122,8 +123,17 @@ var ShowTripPage = {
           position: {lat: parseFloat(this.trip.places[i].lat, 10), lng: parseFloat(this.trip.places[i].lng, 10)},
           map: this.map,
           title: this.trip.places[i].name
-      });
-    }}.bind(this));
+        });
+
+        this.infowindow = new google.maps.InfoWindow({
+          content: this.trip.places[i].name
+        });
+
+        this.marker.addListener('click', function() {
+          this.infowindow.open(map, this.marker);
+        });
+
+      }}.bind(this));
   },
   mounted: function() {
     console.log("beginning of mounted");
@@ -144,11 +154,19 @@ var ShowTripPage = {
       this.results = [];
 
       axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + this.currentPlace.place_id + "&fields=name,geometry&key=APIKEY").then(function(response) {
-        var lat = response.data.result.geometry.location.lat;
-        var lng = response.data.result.geometry.location.lng;
+        // var lat = response.data.result.geometry.location.lat;
+        // var lng = response.data.result.geometry.location.lng;
+        this.lat = response.data.result.geometry.location.lat;
+        this.lng = response.data.result.geometry.location.lng;
 
-        console.log(lat);
-        console.log(lng);
+        this.marker = new google.maps.Marker({
+          position: {lat: this.lat, lng: this.lng },
+          map: this.map,
+          title: inputCurrentPlace.name
+        });          
+
+        console.log(this.lat);
+        console.log(this.lng);
 
         var tripID = {
           place_id: inputCurrentPlace.place_id
@@ -177,8 +195,8 @@ var ShowTripPage = {
           phone_number: phoneNumber,
           opening_hours: hours,
           website: inputCurrentPlace.website,
-          lat: lat,
-          lng: lng
+          lat: this.lat,
+          lng: this.lng
         };
         console.log("printing the params");
         console.log(params);

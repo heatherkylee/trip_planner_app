@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TRIP HERE</title>
+    <title>SmarTrip</title>
    <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -25,18 +25,17 @@
     
     <!-- Bootstrap v4.1.3 CSS via CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+   
+    <!-- Google Maps and Places API -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
     
     <!-- Plugins required on all pages NOTE: Additional non-required plugins are loaded ondemand as of AppStrap 2.5 -->
     
     <!-- Theme style -->
     <link href="assets/css/theme-style.min.css" rel="stylesheet">
-    
-    <!--Your custom colour override-->
-    <link href="#" id="colour-scheme" rel="stylesheet">
-    
+        
     <!-- Your custom override -->
     <link href="assets/css/custom-style.css" rel="stylesheet">
-    
     
     
     <!-- Optional: ICON SETS -->
@@ -73,9 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    <script src="https://unpkg.com/vue2-filters/dist/vue2-filters.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places"></script>
     <script src="index.js" defer></script>
   </head>
   
@@ -106,7 +103,7 @@
           <div class="header-brand">
             <a class="header-brand-text" href="#/" title="Home">
               <h1 class="h2">
-                <span class="header-brand-text-alt">TRIP</span>HERE<span class="header-brand-text-alt">.</span>
+                <span class="header-brand-text-alt">Smar</span>Trip<span class="header-brand-text-alt">.</span>
               </h1>
             </a>
             <div class="header-divider d-none d-lg-block"></div>
@@ -169,7 +166,7 @@
           <h4 class="text-uppercase text-white">
             About Us
           </h4>
-          <p>TripHere is designed to help you plan your next trip!  Add all of the places you want to visit during your trip and view pertinent information in one place.  That's it - planning made easy.</p>
+          <p>SmarTrip is designed to help you plan your next trip!  Add all of the places you want to visit during your trip and view pertinent information in one place.  That's it - planning made easy.</p>
         </div> 
       </div>
       
@@ -182,21 +179,12 @@
           <div class="col-md-6">
             <p class="mb-0">Site template by <a href="appstraptheme.com" class="footer-link">AppStrap</a> | Copyright 2018 &copy; AppStrap</p>
           </div>
-          <!-- <div class="col-md-6">
-            <ul class="list-inline footer-links float-md-right mb-0">
-              <li class="list-inline-item"><a href="#">Terms</a></li>
-              <li class="list-inline-item"><a href="#">Privacy</a></li>
-              <li class="list-inline-item"><a href="#">Contact Us</a></li>
-            </ul>
-          </div> -->
         </div>
         <a href="#top" class="btn btn-icon btn-dark pos-fixed pos-b pos-r mr-3 mb-3 scroll-state-hidden" title="Back to top" data-scroll="scroll-state"><i class="fa fa-chevron-up"></i></a>
       </div>
     </div>
   </footer>
   </div>
-    
-    
     <!--jQuery 3.3.1 via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Popper 1.14.3 via CDN, needed for Bootstrap Tooltips & Popovers -->
@@ -204,10 +192,6 @@
     
     <!-- Bootstrap v4.1.3 JS via CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    
-    
-  <!-- Google Maps Script -->
-    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARNGMy7JUZCj9DLUlyC2Xy9HN3yy2hmpY&libraries=places"></script> -->
      
     <!--Custom scripts & AppStrap API integration -->
     <script src="assets/js/custom-script.js"></script>
@@ -220,10 +204,9 @@
   <div class="vue-component">
         <!-- ======== @Region: #highlighted ======== -->
     <div id="highlighted">
-      <!-- Image Banner: Use the the data-bg-img functionality to create a simple image banner Use spacer classes to make the banner larger with padding, allows for easy responsive changes too see: elements-ctas.htm To make the banner full height add the attributes: data-toggle="full-height" data-offset="#header" -->
       <div class="bg-white overlay overlay-op-6 text-center px-3 py-5 py-lg-10 flex-valign" data-bg-img="assets/img/backgrounds/man-with-open-arms-saluting-the-nature-picjumbo-com.jpg" data-css='{"background-position": "center bottom"}' data-toggle="full-height" data-offset="#header">
         <h2 class="display-4 text-white" data-animate="fadeIn" data-animate-delay="0.2">
-          YOUR TRIP. TRIP HERE.
+          Plan.
         </h2>
         <h3 class="text-grey font-weight-normal" data-animate="fadeIn" data-animate-delay="0.35">
           Start planning your next trip now!
@@ -233,65 +216,6 @@
         </div>
       </div>
     </div>
-      
-      <!-- ======== @Region: #content ======== -->
-      <div id="content" class="p-0">
-        <!-- Features -->
-        <div id="features" class="container py-4 py-lg-6">
-          <hr class="hr-lg mt-0 mb-3 w-10 mx-auto hr-primary" />
-          <h2 class="text-center text-uppercase font-weight-bold my-0">
-            Core Features
-          </h2>
-          <h5 class="text-center font-weight-light mt-2 mb-0 text-muted">
-            Great features, great product!
-          </h5>
-          <hr class="mb-5 w-50 mx-auto" />
-          <div class="row text-center">
-            <div class="col-lg-4 py-1">
-              <i class="la la-tachometer icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.1"></i> 
-              <h5 class="mt-1 op-8">
-                Fully Optimized
-              </h5>
-              <p class="text-sm text-black-50">Aliquip facilisis letalis obruo populus sino virtus. Augue nunc quis.</p>
-            </div>
-            <div class="col-lg-4 py-1">
-              <i class="la la-wrench icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.2"></i> 
-              <h5 class="mt-1 op-8">
-                Free Support
-              </h5>
-              <p class="text-sm text-black-50">Accumsan antehabeo comis gemino humo secundum torqueo. Damnum fere in nobis odio tego tincidunt.</p>
-            </div>
-            <div class="col-lg-4 py-1">
-              <i class="la la-rocket icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.3"></i> 
-              <h5 class="mt-1 op-8">
-                Free Upgrades
-              </h5>
-              <p class="text-sm text-black-50">Incassum lenis letalis quia ullamcorper validus. Inhibeo os patria refoveo.</p>
-            </div>
-            <div class="col-lg-4 py-1">
-              <i class="la la-area-chart icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.4"></i> 
-              <h5 class="mt-1 op-8">
-                99.9% Uptime
-              </h5>
-              <p class="text-sm text-black-50">Diam immitto laoreet utinam. At defui euismod inhibeo jumentum nobis quis tego.</p>
-            </div>
-            <div class="col-lg-4 py-1">
-              <i class="la la-users icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.5"></i> 
-              <h5 class="mt-1 op-8">
-                Multiuser
-              </h5>
-              <p class="text-sm text-black-50">Accumsan adipiscing augue bene euismod iaceo ludus ymo.</p>
-            </div>
-            <div class="col-lg-4 py-1">
-              <i class="la la-plug icon-3x text-primary" data-animate="fadeIn" data-animate-delay="0.6"></i> 
-              <h5 class="mt-1 op-8">
-                Plug n play
-              </h5>
-              <p class="text-sm text-black-50">Adipiscing luptatum scisco turpis validus. Abbas appellatio diam paulatim quidne refero turpis.</p>
-            </div>
-          </div>
-        </div>
-    </div> 
 </template>
 
 <template id="trips-page">
@@ -308,44 +232,44 @@
         </h5>
         <hr class="mb-5 w-50 mx-auto" />
       </div>
-  <div class="row">
-    <div class="col-md-4" v-for="trip in trips">
-      <div class="card-effect card-effect-front-to-back">
-        <img class="card-img-top img-fluid" src="https://images.indianexpress.com/2016/09/woman759.jpg" alt="Bruce Lawson">
-        <div class="card-back rounded bg-dark bg-op-8 text-white flex-valign text-center p-3">
-          <div>
-            <a v-bind:href="'/#/trips/' + trip.id "  class="text-white">
-              <i class="fa fa-arrow-circle-right icon-3x text-white"></i> 
-              <p><span class="h5 mt-4">{{trip.name}}</span></p>
-            </a>
+      <div class="row">
+        <div class="col-md-4" v-for="trip in trips">
+          <div class="card-effect card-effect-front-to-back">
+            <img class="card-img-top img-fluid" src="/assets/img/backgrounds/map.jpg" alt="Bruce Lawson">
+            <div class="card-back rounded bg-dark bg-op-8 text-white flex-valign text-center p-3">
+              <div>
+                <a v-bind:href="'/#/trips/' + trip.id "  class="text-white">
+                  <i class="fa fa-arrow-circle-right icon-3x text-white"></i> 
+                  <p><span class="h5 mt-4">{{trip.name}}</span></p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title mb-1">
+              {{trip.name}}
+            </h5>
           </div>
         </div>
       </div>
-      <div class="card-body">
-        <h5 class="card-title mb-1">
-          {{trip.name}}
-        </h5>
-      </div>
-    </div>
-  </div>
-  <hr class="mb-5 w-50 mx-auto" />
-    <div class="addTrip">
-      <form>
-          <div id="content" class="form-login form-wrapper form-narrow">
-            <ul>
-              <li class="text-danger" v-for="error in errors">{{ error }}</li>
-            </ul>
-            <h3 class="title-divider">
-              <span>Add a Trip</span> 
-            </h3>
-            <div class="form-group">
-              <label class="sr-only">Name</label>
-              <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+      <hr class="mb-5 w-50 mx-auto" />
+      <div class="addTrip">
+          <div id="content">
+            <form class="form-login form-wrapper form-narrow" v-on:submit.prevent="submit">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+              <h3 class="title-divider">
+                <span>Add a Trip</span> 
+              </h3>
+              <div class="form-group">
+                <label class="sr-only">Name</label>
+                <input type="text" class="form-control" placeholder="Trip Name" v-model="name">
+              </div>
+              <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
             </div>
-            <button type="button" class="btn btn-primary" v-on:click="submit()">Submit</button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
     </div>
 </div>
 </template>
@@ -364,7 +288,7 @@
         </h5>
         <hr class="mb-5 w-50 mx-auto" />
       </div>
-      <div id="map-container" class="z-depth-1" style="height: 500px">
+      <div id="map-container" class="z-depth-1" style="height: 350px">
           <div id="map"></div>
       </div>
       <br>
@@ -400,7 +324,7 @@
       <hr class="mb-5 w-50 mx-auto" />
       <div class="newPlace">
         <div id="content">
-          <form class="form-login form-wrapper form-narrow">
+          <form class="form-login form-wrapper form-narrow" v-on:submit.prevent="submit">
             <ul>
               <li class="text-danger" v-for="error in errors">{{ error }}</li>
             </ul>
@@ -417,18 +341,6 @@
                 id="newPlace" 
                 v-model="newPlace" />
             </div>
-<!--             <button type="button" class="btn btn-primary" v-on:click="searchPlace()">Submit</button> -->
-<!--             <div v-for="candidate in results.candidates">
-              <hr class="mb-5 w-50 mx-auto" />
-              <h3 class="text-center font-weight-light mt-2 mb-0 text-muted">
-                <p>Return Results</p>
-              </h3>
-              <p>Name: {{candidate.name}}</p>
-              <p>Address: {{candidate.formatted_address}}</p>
-              <p>Place_ID: {{candidate.place_id}}</p>
-              <button type="button" class="btn btn-primary" v-on:click="addToTrip(candidate)">Add to your trip</button>
-              <hr>
-            </div> -->
 <!--             {{currentPlace}} -->
             <div>
               <hr class="mb-5 w-50 mx-auto" />
@@ -437,7 +349,6 @@
               </h3>
               <p><a v-bind:href="currentPlace.website">{{currentPlace.name}}</a></p>
               <p>{{currentPlace.formatted_address}}</p>
-              <p>{{currentPlace.place_id}}</p>
               <hr>
               <button type="button" class="btn btn-primary" v-on:click="addToTrip(currentPlace)">Add to your trip</button>
             </div>
@@ -463,7 +374,7 @@
     </div>
     <div id="content">
       <div class="container">
-        <form class="form-login form-wrapper form-narrow">
+        <form class="form-login form-wrapper form-narrow" v-on:submit.prevent="submit">
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
