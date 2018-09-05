@@ -37,7 +37,7 @@ var TripsPage = {
   },
   methods: {
     submit: function() {
-      axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.location + "&key=APIKEY").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.location + "&key=AIzaSyARNGMy7JUZCj9DLUlyC2Xy9HN3yy2hmpY").then(function(response) {
         this.locationLat = response.data.results[0].geometry.location.lat;
         console.log(this.locationLat);
         this.locationLng = response.data.results[0].geometry.location.lng;
@@ -144,7 +144,7 @@ var ShowTripPage = {
     }.bind(this));
   },
   mounted: function() {
-    console.log("beginning of mounted");
+    // console.log("beginning of mounted");
     this.autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(this.$refs.autocomplete),
       {types: ['establishment', 'geocode']});
@@ -161,7 +161,7 @@ var ShowTripPage = {
       console.log(inputCurrentPlace);
       this.results = [];
 
-      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + this.currentPlace.place_id + "&fields=name,geometry&key=APIKEY").then(function(response) {
+      axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + this.currentPlace.place_id + "&fields=name,geometry&key=AIzaSyARNGMy7JUZCj9DLUlyC2Xy9HN3yy2hmpY").then(function(response) {
         this.lat = response.data.result.geometry.location.lat;
         this.lng = response.data.result.geometry.location.lng;
 
@@ -337,6 +337,11 @@ var router = new VueRouter({
 var app = new Vue({
   el: "#vue-app",
   router: router,
+  // watch: {
+  //   '$route': function() {
+  //     window.location.reload();
+  //   }
+  // },
   created: function() {
     var jwt = localStorage.getItem("jwt");
     if (jwt) {
