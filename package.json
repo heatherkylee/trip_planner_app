@@ -1,5 +1,7 @@
 {
   "name": "trip_planner_app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "merge": ">=1.2.1"
+  }
 }
